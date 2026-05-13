@@ -1,5 +1,30 @@
 <?php
 
+// Serve static files (CSS, JS, images) when using php -S
+if (php_sapi_name() === 'cli-server') {
+    $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $file = __DIR__ . DIRECTORY_SEPARATOR . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $uri), DIRECTORY_SEPARATOR);
+    if (is_file($file)) {
+        $ext  = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+        $mime = [
+            'css'  => 'text/css',
+            'js'   => 'application/javascript',
+            'png'  => 'image/png',
+            'jpg'  => 'image/jpeg',
+            'jpeg' => 'image/jpeg',
+            'gif'  => 'image/gif',
+            'svg'  => 'image/svg+xml',
+            'ico'  => 'image/x-icon',
+            'woff' => 'font/woff',
+            'woff2'=> 'font/woff2',
+            'ttf'  => 'font/ttf',
+        ][$ext] ?? 'application/octet-stream';
+        header('Content-Type: ' . $mime);
+        readfile($file);
+        exit;
+    }
+}
+
 require dirname(__DIR__) . '/bootstrap.php';
 
 use App\Infrastructure\Database;

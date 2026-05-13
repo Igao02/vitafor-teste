@@ -12,41 +12,30 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark" id="main-nav">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-            <span class="brand-icon"><i class="bi bi-globe2"></i></span>
-            <span class="fw-bold">RickVerse</span>
+        <a class="navbar-brand" href="/">
+            <span class="nav-logo">R&M</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navMenu">
-            <ul class="navbar-nav ms-auto gap-1">
+            <ul class="navbar-nav ms-auto gap-2">
                 <li class="nav-item">
-                    <a class="nav-link <?= ($activePage ?? '') === 'home' ? 'active' : '' ?>" href="/">Home</a>
+                    <a class="nav-btn <?= ($activePage ?? '') === 'home' ? 'active' : '' ?>" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= ($activePage ?? '') === 'characters' ? 'active' : '' ?>" href="/characters">Personagens</a>
+                    <a class="nav-btn <?= ($activePage ?? '') === 'characters' ? 'active' : '' ?>" href="/characters">Personagens</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link <?= ($activePage ?? '') === 'about' ? 'active' : '' ?>" href="/about">Sobre</a>
+                    <a class="nav-btn <?= ($activePage ?? '') === 'about' ? 'active' : '' ?>" href="/about">Sobre</a>
                 </li>
                 <?php if (\App\Application\AuthService::check()): ?>
                     <li class="nav-item">
-                        <span class="nav-link text-white-50">
-                            <i class="bi bi-person-circle me-1"></i><?= htmlspecialchars(\App\Application\AuthService::name()) ?>
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-nav-logout" href="/logout">
-                            <i class="bi bi-box-arrow-right me-1"></i>Sair
-                        </a>
+                        <a class="nav-btn <?= ($activePage ?? '') === 'logout' ? 'active' : '' ?>" href="/logout">Sair</a>
                     </li>
                 <?php else: ?>
                     <li class="nav-item">
-                        <a class="nav-link <?= ($activePage ?? '') === 'login' ? 'active' : '' ?>" href="/login">Entrar</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link btn-nav-register <?= ($activePage ?? '') === 'register' ? 'active' : '' ?>" href="/register">Cadastrar</a>
+                        <a class="nav-btn <?= in_array($activePage ?? '', ['login','register']) ? 'active' : '' ?>" href="/login">Login/Cadastro</a>
                     </li>
                 <?php endif; ?>
             </ul>
