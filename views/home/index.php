@@ -62,11 +62,21 @@ ob_start();
     <!-- Paginação base -->
     <div class="d-flex justify-content-center gap-2 mt-5" id="pagination-bottom"></div>
 
-    <!-- Estado vazio -->
+    <!-- Estado vazio (busca sem resultado) -->
     <div class="text-center py-5 d-none" id="empty-state">
         <i class="bi bi-search text-muted" style="font-size: 3rem;"></i>
         <p class="mt-3 text-muted">Nenhum personagem encontrado para "<span id="empty-query"></span>"</p>
         <button class="btn btn-outline-primary btn-sm" id="clear-search">Limpar busca</button>
+    </div>
+
+    <!-- Erro de API -->
+    <div class="text-center py-5 d-none" id="api-error-state">
+        <i class="bi bi-wifi-off text-muted" style="font-size: 3rem;"></i>
+        <p class="mt-3 text-muted fw-semibold">Sem retorno da API</p>
+        <p class="text-muted small">A API do Rick and Morty não respondeu. Tente novamente em instantes.</p>
+        <button class="btn btn-outline-primary btn-sm" onclick="fetchCharacters(currentPage)">
+            <i class="bi bi-arrow-clockwise me-1"></i>Tentar novamente
+        </button>
     </div>
 </div>
 

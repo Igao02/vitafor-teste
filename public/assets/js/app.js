@@ -24,8 +24,8 @@ function showToast(message, type = 'success') {
     el.addEventListener('hidden.bs.toast', () => el.remove());
 }
 
-/* ── Home page: Rick & Morty API ── */
-const API_BASE = 'https://rickandmortyapi.com/api';
+/* ── Home page: proxy local → Rick & Morty API ── */
+const API_BASE = '/api/rm';
 
 let currentPage   = 1;
 let totalPages    = 1;
@@ -77,22 +77,25 @@ async function fetchCharacters(page) {
         const data = await res.json();
 
         if (!res.ok || data.error) {
-            showEmptyState(currentName);
+            if (currentName) showEmptyState(currentName);
+            else             showApiError();
             return;
         }
 
         totalPages = data.info.pages;
         renderCards(data.results);
-        updateCount(data.info.count, page, data.results.length);
+        updateCount(data.info.count);
         renderPagination(page, totalPages);
-    } catch {
-        showEmptyState(currentName);
+    } catch (err) {
+        console.error('[fetchCharacters] erro:', err);
+        showApiError();
     }
 }
 
 function renderCards(characters) {
     const grid = document.getElementById('characters-grid');
     document.getElementById('empty-state')?.classList.add('d-none');
+    document.getElementById('api-error-state')?.classList.add('d-none');
 
     grid.innerHTML = characters.map(char => `
         <div class="col">
@@ -119,7 +122,12 @@ function renderCards(characters) {
 function showSkeletons() {
     const grid = document.getElementById('characters-grid');
     document.getElementById('empty-state')?.classList.add('d-none');
-    document.getElementById('results-count').textContent = '';
+    document.getElementById('api-error-state')?.classList.add('d-none');
+
+    const countEl = document.getElementById('results-count');
+    if (countEl) {
+        countEl.innerHTML = '<span class="text-muted fst-italic"><span class="spinner-border spinner-border-sm me-1"></span>Buscando informações da API...</span>';
+    }
 
     grid.innerHTML = Array.from({ length: 8 }, () => `
         <div class="col">
@@ -142,6 +150,22 @@ function showSkeletons() {
     });
 }
 
+function showApiError() {
+    const grid = document.getElementById('characters-grid');
+    if (grid) grid.innerHTML = '';
+
+    const countEl = document.getElementById('results-count');
+    if (countEl) countEl.textContent = '';
+
+    const errEl = document.getElementById('api-error-state');
+    if (errEl) errEl.classList.remove('d-none');
+
+    ['pagination-top', 'pagination-bottom'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = '';
+    });
+}
+
 function showEmptyState(query) {
     const grid  = document.getElementById('characters-grid');
     const empty = document.getElementById('empty-state');
@@ -156,7 +180,7 @@ function showEmptyState(query) {
     });
 }
 
-function updateCount(total, page, shown) {
+function updateCount(total) {
     const el = document.getElementById('results-count');
     if (el) el.textContent = `${total} personagens encontrados`;
 }
@@ -165,22 +189,36 @@ function renderPagination(current, total) {
     if (total <= 1) return;
 
     const html = `
-        <button class="btn btn-outline-primary btn-sm" onclick="fetchCharacters(${current - 1})"
-            ${current === 1 ? 'disabled' : ''}>
+        <button class="btn btn-outline-primary btn-sm btn-paginate"
+            data-page="${current - 1}" ${current === 1 ? 'disabled' : ''}>
             <i class="bi bi-chevron-left"></i> Anterior
         </button>
         <span class="btn btn-sm disabled text-muted">
             ${current} / ${total}
         </span>
-        <button class="btn btn-outline-primary btn-sm" onclick="fetchCharacters(${current + 1})"
-            ${current === total ? 'disabled' : ''}>
+        <button class="btn btn-outline-primary btn-sm btn-paginate"
+            data-page="${current + 1}" ${current === total ? 'disabled' : ''}>
             Próxima <i class="bi bi-chevron-right"></i>
         </button>
     `;
 
     ['pagination-top', 'pagination-bottom'].forEach(id => {
         const el = document.getElementById(id);
-        if (el) el.innerHTML = html;
+        if (!el) return;
+        el.innerHTML = html;
+        el.querySelectorAll('.btn-paginate:not([disabled])').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const page = parseInt(btn.dataset.page);
+
+                document.querySelectorAll('.btn-paginate').forEach(b => {
+                    b.disabled = true;
+                });
+
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span>Carregando...';
+
+                setTimeout(() => fetchCharacters(page), 2000);
+            });
+        });
     });
 }
 
@@ -203,13 +241,11 @@ function initDetailPage() {
             btnSave.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Salvando...';
 
             const data = {
-                api_id:   btnSave.dataset.apiId,
-                name:     btnSave.dataset.name,
-                species:  btnSave.dataset.species,
-                gender:   btnSave.dataset.gender,
-                location: btnSave.dataset.location,
-                image:    btnSave.dataset.image,
-                url:      btnSave.dataset.url,
+                api_id:  btnSave.dataset.apiId,
+                name:    btnSave.dataset.name,
+                species: btnSave.dataset.species,
+                image:   btnSave.dataset.image,
+                url:     btnSave.dataset.url,
             };
 
             try {
