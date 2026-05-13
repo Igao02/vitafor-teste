@@ -21,7 +21,12 @@ class CharacterController
 
     public function index(Request $request, array $params = []): void
     {
-        $characters = $this->repo->findAll();
+        if (!AuthService::check()) {
+            header('Location: /login');
+            exit;
+        }
+
+        $characters = $this->repo->findByUserId(AuthService::id());
         require BASE_PATH . '/views/characters/index/index.php';
     }
 
