@@ -1,4 +1,3 @@
-/* ── Toast helper ── */
 function showToast(message, type = 'success') {
     const container = document.getElementById('toast-container');
     if (!container) return;
@@ -24,7 +23,6 @@ function showToast(message, type = 'success') {
     el.addEventListener('hidden.bs.toast', () => el.remove());
 }
 
-/* ── Home page: proxy local → Rick & Morty API ── */
 const API_BASE = '/api/rm';
 
 let currentPage   = 1;
@@ -228,7 +226,6 @@ function escapeHtml(str) {
     return d.innerHTML;
 }
 
-/* ── Detail page ── */
 function initDetailPage() {
     const btnSave     = document.getElementById('btn-save');
     const btnSaveEdit = document.getElementById('btn-save-edit');

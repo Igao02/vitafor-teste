@@ -9,7 +9,6 @@ ob_start();
     <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-7">
 
-            <!-- Header -->
             <div class="card border-0 shadow-sm p-4 mb-4 text-center">
                 <div class="mb-3">
                     <img src="/assets/img/igor_foto.jpg"
@@ -35,7 +34,6 @@ ob_start();
                 </div>
             </div>
 
-            <!-- Bio -->
             <div class="card border-0 shadow-sm p-4 mb-4">
                 <h5 class="fw-bold mb-3 text-primary-custom">
                     <i class="bi bi-person-lines-fill me-2"></i>Sobre mim
@@ -49,7 +47,6 @@ ob_start();
                 </p>
             </div>
 
-            <!-- Habilidades -->
             <div class="card border-0 shadow-sm p-4 mb-4">
                 <h5 class="fw-bold mb-3 text-primary-custom">
                     <i class="bi bi-tools me-2"></i>Habilidades

@@ -7,7 +7,7 @@ class RickAndMortyClient
     private const BASE_URL = 'https://rickandmortyapi.com/api';
 
     private const MAX_RETRY  = 5;
-    private const RETRY_WAIT = 2000000; // 2s em microsegundos
+    private const RETRY_WAIT = 2000000;
 
     private function get(string $url): ?array
     {

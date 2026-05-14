@@ -72,6 +72,14 @@ class CharacterRepository
         ]);
     }
 
+    public function findIdByApiId(int $userId, int $apiId): ?int
+    {
+        $stmt = $this->db->prepare('SELECT id FROM characters WHERE user_id = ? AND api_id = ? AND active = 1 LIMIT 1');
+        $stmt->execute([$userId, $apiId]);
+        $row = $stmt->fetch();
+        return $row ? (int) $row['id'] : null;
+    }
+
     public function delete(int $id, int $userId): bool
     {
         $stmt = $this->db->prepare('UPDATE characters SET active = 0 WHERE id = ? AND user_id = ?');

@@ -11,7 +11,6 @@ ob_start();
         <p class="text-muted lead">Descubra todos os personagens do universo de Rick and Morty</p>
     </div>
 
-    <!-- Search + filter -->
     <div class="row justify-content-center mb-4">
         <div class="col-12 col-md-8 col-lg-6">
             <div class="input-group shadow-sm">
@@ -35,13 +34,11 @@ ob_start();
         </div>
     </div>
 
-    <!-- Info + paginação topo -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <p class="text-muted small mb-0" id="results-count"></p>
         <div id="pagination-top" class="d-flex gap-2"></div>
     </div>
 
-    <!-- Grid de cards -->
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="characters-grid">
         <?php for ($i = 0; $i < 8; $i++): ?>
             <div class="col skeleton-col">
@@ -59,17 +56,14 @@ ob_start();
         <?php endfor; ?>
     </div>
 
-    <!-- Paginação base -->
     <div class="d-flex justify-content-center gap-2 mt-5" id="pagination-bottom"></div>
 
-    <!-- Estado vazio (busca sem resultado) -->
     <div class="text-center py-5 d-none" id="empty-state">
         <i class="bi bi-search text-muted" style="font-size: 3rem;"></i>
         <p class="mt-3 text-muted">Nenhum personagem encontrado para "<span id="empty-query"></span>"</p>
         <button class="btn btn-outline-primary btn-sm" id="clear-search">Limpar busca</button>
     </div>
 
-    <!-- Erro de API -->
     <div class="text-center py-5 d-none" id="api-error-state">
         <i class="bi bi-wifi-off text-muted" style="font-size: 3rem;"></i>
         <p class="mt-3 text-muted fw-semibold">Sem retorno da API</p>

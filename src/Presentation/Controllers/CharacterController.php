@@ -53,6 +53,11 @@ class CharacterController
             require BASE_PATH . '/views/404.php';
             return;
         }
+
+        $savedLocalId = AuthService::check()
+            ? $this->repo->findIdByApiId(AuthService::id(), $id)
+            : null;
+
         require BASE_PATH . '/views/characters/show/index.php';
     }
 

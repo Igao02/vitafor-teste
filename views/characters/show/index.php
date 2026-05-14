@@ -49,11 +49,9 @@ ob_start();
                          class="detail-image img-fluid">
                 </div>
 
-                <!-- Dados -->
                 <div class="col-12 col-md-8 d-flex flex-column">
 
                     <?php if ($isLocal): ?>
-                        <!-- Modo local: editar campos salvos -->
                         <h2 class="fw-bold mb-4"><?= htmlspecialchars($name) ?></h2>
 
                         <form id="edit-form" class="flex-grow-1">
@@ -80,7 +78,6 @@ ob_start();
                                        value="<?= htmlspecialchars($url) ?>">
                             </div>
 
-                            <!-- Datas (somente leitura) -->
                             <div class="row g-3 mb-4 text-muted small">
                                 <div class="col-6">
                                     <span class="fw-semibold d-block">Criado em</span>
@@ -105,7 +102,6 @@ ob_start();
                         </form>
 
                     <?php else: ?>
-                        <!-- Modo API: visualizar dados da API -->
                         <h2 class="fw-bold mb-4"><?= htmlspecialchars($name) ?></h2>
 
                         <dl class="row mb-4 flex-grow-1">
@@ -128,7 +124,12 @@ ob_start();
                         </dl>
 
                         <div class="d-flex justify-content-end">
-                            <?php if ($isLoggedIn): ?>
+                            <?php if ($isLoggedIn && ($savedLocalId ?? null)): ?>
+                                <a href="/character/<?= $savedLocalId ?>?source=local"
+                                   class="btn btn-success">
+                                    <i class="bi bi-bookmark-check me-2"></i>Ver personagem salvo
+                                </a>
+                            <?php elseif ($isLoggedIn): ?>
                                 <button class="btn btn-primary" id="btn-save"
                                         data-api-id="<?= $charId ?>"
                                         data-name="<?= htmlspecialchars($name) ?>"
