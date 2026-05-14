@@ -1,11 +1,9 @@
-/* ── Variáveis ── */
 :root {
     --primary:     #1a3a5c;
     --primary-rgb: 26, 58, 92;
     --bg:          #f8f9fa;
 }
 
-/* ── Base ── */
 body {
     background-color: var(--bg);
     min-height: 100vh;
@@ -15,7 +13,6 @@ body {
 
 main { flex: 1; }
 
-/* ── Navbar ── */
 #main-nav {
     background-color: var(--primary) !important;
     box-shadow: 0 2px 8px rgba(0,0,0,.15);
@@ -52,10 +49,8 @@ main { flex: 1; }
 .nav-btn:hover  { background: rgba(255,255,255,.4);  color: #fff !important; }
 .nav-btn.active { background: rgba(255,255,255,.38); color: #fff !important; }
 
-/* ── Texto primário ── */
 .text-primary-custom { color: var(--primary) !important; }
 
-/* ── Botões ── */
 .btn-primary {
     background-color: var(--primary);
     border-color: var(--primary);
@@ -73,7 +68,6 @@ main { flex: 1; }
     border-color: var(--primary);
 }
 
-/* ── Auth card ── */
 .auth-card {
     width: 100%;
     max-width: 440px;
@@ -92,7 +86,6 @@ main { flex: 1; }
     justify-content: center;
 }
 
-/* ── Character cards ── */
 .character-card {
     border-radius: 12px;
     overflow: hidden;
@@ -109,12 +102,10 @@ main { flex: 1; }
     object-fit: cover;
 }
 
-/* ── Status badges ── */
 .badge-alive   { background-color: #198754; }
 .badge-dead    { background-color: #dc3545; }
 .badge-unknown { background-color: #6c757d; }
 
-/* ── Skeleton loader ── */
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50%       { opacity: .4; }
@@ -129,7 +120,6 @@ main { flex: 1; }
 .skeleton-text-sm { height: 14px; width: 45%; }
 .skeleton-btn  { height: 36px; width: 100%; border-radius: 6px; }
 
-/* ── Detail page ── */
 .detail-image {
     width: 100%;
     max-width: 280px;
@@ -137,10 +127,8 @@ main { flex: 1; }
     box-shadow: 0 4px 20px rgba(0,0,0,.12);
 }
 
-/* ── Footer ── */
 footer { font-size: .85rem; }
 
-/* ── About page ── */
 .skill-category {
     font-size: .7rem;
     font-weight: 700;

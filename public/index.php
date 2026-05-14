@@ -1,6 +1,5 @@
 <?php
 
-// Serve static files (CSS, JS, images) when using php -S
 if (php_sapi_name() === 'cli-server') {
     $uri  = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $file = __DIR__ . DIRECTORY_SEPARATOR . ltrim(str_replace('/', DIRECTORY_SEPARATOR, $uri), DIRECTORY_SEPARATOR);
