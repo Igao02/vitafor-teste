@@ -128,7 +128,12 @@ ob_start();
                         </dl>
 
                         <div class="d-flex justify-content-end">
-                            <?php if ($isLoggedIn): ?>
+                            <?php if ($isLoggedIn && ($savedLocalId ?? null)): ?>
+                                <a href="/character/<?= $savedLocalId ?>?source=local"
+                                   class="btn btn-success">
+                                    <i class="bi bi-bookmark-check me-2"></i>Ver personagem salvo
+                                </a>
+                            <?php elseif ($isLoggedIn): ?>
                                 <button class="btn btn-primary" id="btn-save"
                                         data-api-id="<?= $charId ?>"
                                         data-name="<?= htmlspecialchars($name) ?>"
