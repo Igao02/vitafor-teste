@@ -49,7 +49,7 @@
 
 <footer class="text-center text-muted py-4 border-top small">
     <div class="container">
-        Desenvolvido com <i class="bi bi-heart-fill text-danger"></i> usando a
+        Desenvolvido usando a
         <a href="https://rickandmortyapi.com" target="_blank" class="text-decoration-none">Rick and Morty API</a>
     </div>
 </footer>
